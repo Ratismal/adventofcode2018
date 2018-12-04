@@ -13,12 +13,13 @@ fn main() {
 
     // todo: better menu
     println!("Please select from the list:");
-    println!(" - Day 1:");
-    println!("    1. Puzzle A");
-    println!("    2. Puzzle B");
-    println!(" - Day 2:");
-    println!("    3. Puzzle A");
-    println!("    4. Puzzle B");
+    println!(" - Day 1: 1. Puzzle A, 2. Puzzle B");
+    println!(" - Day 2: 3. Puzzle A, 4. Puzzle B");
+    println!(" - Day 3: 5. Puzzle A, 6. Puzzle B");
+    println!(" - Day 4: 7. Puzzle A, 8. Puzzle B");
+    println!(" - Day 5: 9. Puzzle A, 10. Puzzle B");
+    println!(" - Day 6: 11. Puzzle A, 12. Puzzle B");
+    println!(" - Day 7: 13. Puzzle A, 14. Puzzle B");
 
     print!("> ");
 
