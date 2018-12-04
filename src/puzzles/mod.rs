@@ -1,5 +1,10 @@
 mod d1;
 mod d2;
+mod d3;
+mod d4;
+mod d5;
+mod d6;
+mod d7;
 mod puzzle;
 
 fn missing_puzzle(_content: String) -> String {
@@ -8,15 +13,23 @@ fn missing_puzzle(_content: String) -> String {
 }
 
 pub fn execute_puzzle(i: u32, content: String) -> String {
-    // todo: dynamic matching
-    let p_func = match i {
-        1 => d1::puzzle_a,
-        2 => d1::puzzle_b,
-        3 => d2::puzzle_a,
-        4 => d2::puzzle_b,
-        _ => missing_puzzle,
-    };
-
+    let funcs = [
+        d1::puzzle_a,
+        d1::puzzle_b,
+        d2::puzzle_a,
+        d2::puzzle_b,
+        d3::puzzle_a,
+        d3::puzzle_b,
+        d4::puzzle_a,
+        d4::puzzle_b,
+        d5::puzzle_a,
+        d5::puzzle_b,
+        d6::puzzle_a,
+        d6::puzzle_b,
+        d7::puzzle_a,
+        d7::puzzle_b,
+    ];
+    let p_func = funcs.get((i - 1) as usize).expect("Puzzle did not exist.");
     let res = p_func(content);
 
     return res;
