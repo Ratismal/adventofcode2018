@@ -7,11 +7,6 @@ mod d6;
 mod d7;
 mod puzzle;
 
-fn missing_puzzle(_content: String) -> String {
-    let ret = String::from("Puzzle did not exist.");
-    return ret;
-}
-
 pub fn execute_puzzle(i: u32, content: String) -> String {
     let funcs = [
         d1::puzzle_a,

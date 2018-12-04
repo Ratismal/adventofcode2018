@@ -1,7 +1,7 @@
-use std::io;
-use std::io::Write;
-use std::io::stdout;
 use std::fs;
+use std::io;
+use std::io::stdout;
+use std::io::Write;
 
 mod puzzles;
 
@@ -25,7 +25,9 @@ fn main() {
     let _ = stdout().flush();
 
     let mut input = String::new();
-    io::stdin().read_line(&mut input).expect("error: unable to read user input");
+    io::stdin()
+        .read_line(&mut input)
+        .expect("error: unable to read user input");
 
     let s = input.trim_right();
 
@@ -38,10 +40,9 @@ fn main() {
 
     println!("Index: {}, Day: {}, Puzzle: {}", i, day, puz);
 
-    let filename = format!("input/d{}_{}.txt", day, puz);
+    let filename = format!("input/d{}.txt", day);
 
-    let contents = fs::read_to_string(&filename)
-        .expect("Could not read puzzle input");
+    let contents = fs::read_to_string(&filename).expect("Could not read puzzle input");
 
     let res = puzzles::execute_puzzle(i, contents);
 
