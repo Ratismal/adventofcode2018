@@ -14,7 +14,7 @@ mod puzzle;
 
 use self::puzzle::Puzzle;
 
-pub fn execute_puzzle() -> String {
+pub fn execute_puzzle() -> bool {
     let mut days: Vec<Box<Puzzle>> = Vec::new();
     days.push(Box::new(d1::Day {}));
     days.push(Box::new(d2::Day {}));
@@ -38,6 +38,8 @@ pub fn execute_puzzle() -> String {
         );
     }
 
+    println!("  q. Quit the application");
+
     print!("> ");
 
     let _ = stdout().flush();
@@ -48,6 +50,10 @@ pub fn execute_puzzle() -> String {
         .expect("error: unable to read user input");
 
     let trimmed = input.trim_right().to_string();
+
+    if trimmed == String::from("q") {
+        return false;
+    }
     println!("Your choice: '{}'", trimmed);
 
     let id: String = trimmed.chars().take(trimmed.chars().count() - 1).collect();
@@ -57,23 +63,32 @@ pub fn execute_puzzle() -> String {
         .take(1)
         .collect();
 
-    println!("aaaa");
     println!("Day: {}, Puzzle: {}", id, puzzle_id);
 
-    let i: u32 = id.parse().expect("invalid number provided");
+    let i: usize = id.parse().expect("invalid number provided");
 
-    let filename = format!("input/d{}.txt", i);
+    if i >= days.len() {
+        println!("Puzzle did not exist");
+    } else {
+        let filename = format!("input/d{}.txt", i);
 
-    let content = fs::read_to_string(&filename).expect("Could not read puzzle input");
+        let content = fs::read_to_string(&filename).expect("Could not read puzzle input");
 
-    let day_struct = &days[(i - 1) as usize];
-    let res: String = match puzzle_id.as_ref() {
-        "a" => day_struct.puzzle_a(content),
-        "b" => day_struct.puzzle_b(content),
-        _ => String::from("Invalid Puzzle"),
-    };
+        let day_struct = &days[(i - 1) as usize];
+        let res: String = match puzzle_id.as_ref() {
+            "a" => day_struct.puzzle_a(content),
+            "b" => day_struct.puzzle_b(content),
+            _ => String::from("Invalid Puzzle"),
+        };
 
-    println!("Result: {}", res);
+        println!("Result: {}", res);
+    }
 
-    return res;
+    println!("Press enter to continue...");
+    let mut _input = String::new();
+    io::stdin()
+        .read_line(&mut _input)
+        .expect("error: unable to read user input");
+
+    return true;
 }

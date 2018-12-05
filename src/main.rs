@@ -6,5 +6,8 @@ fn main() {
     println!("|          - stupid cat   |");
     println!("@=========================@\n");
 
-    puzzles::execute_puzzle();
+    let mut do_loop = true;
+    while do_loop {
+        do_loop = puzzles::execute_puzzle();
+    }
 }
