@@ -58,7 +58,10 @@ pub struct Day {}
 
 impl Puzzle for Day {
   fn desc(&self) -> (String, String) {
-    return (String::from("Placeholder"), String::from("Placeholder"));
+    return (
+      String::from("Find when a guard is asleep"),
+      String::from("Find the sleepiest guard"),
+    );
   }
 
   fn puzzle_a(&self, input: String) -> String {
