@@ -1,46 +1,59 @@
 use std::collections::HashMap;
 
-pub fn puzzle_a(input: String) -> String {
-    let lines = input.lines();
+use puzzles::puzzle::Puzzle;
 
-    let mut result: i32 = 0;
+pub struct Day {}
 
-    println!("Adding a series of numbers...");
-
-    for line in lines {
-        let i: i32 = line.parse().unwrap();
-        result += i;
+impl Puzzle for Day {
+    fn desc(&self) -> (String, String) {
+        return (
+            String::from("Add a series of numbers"),
+            String::from("Find first repeated sum"),
+        );
     }
 
-    let res = result.to_string();
-
-    return res;
-}
-
-pub fn puzzle_b(input: String) -> String {
-    let mut map = HashMap::new();
-
-    let mut result: i32 = 0;
-    let mut cont = true;
-
-    println!("Finding first repeated result when continuously adding a series of numbers...");
-
-    while cont {
+    fn puzzle_a(&self, input: String) -> String {
         let lines = input.lines();
-        for line in lines {
-            let mut i: i32 = line.parse().unwrap();
-            result += i;
 
-            if map.contains_key(&result) {
-                cont = false;
-                break;
-            } else {
-                map.insert(result, true);
+        let mut result: i32 = 0;
+
+        println!("Adding a series of numbers...");
+
+        for line in lines {
+            let i: i32 = line.parse().unwrap();
+            result += i;
+        }
+
+        let res = result.to_string();
+
+        return res;
+    }
+
+    fn puzzle_b(&self, input: String) -> String {
+        let mut map = HashMap::new();
+
+        let mut result: i32 = 0;
+        let mut cont = true;
+
+        println!("Finding first repeated result when continuously adding a series of numbers...");
+
+        while cont {
+            let lines = input.lines();
+            for line in lines {
+                let mut i: i32 = line.parse().unwrap();
+                result += i;
+
+                if map.contains_key(&result) {
+                    cont = false;
+                    break;
+                } else {
+                    map.insert(result, true);
+                }
             }
         }
+
+        let res = result.to_string();
+
+        return res;
     }
-
-    let res = result.to_string();
-
-    return res;
 }

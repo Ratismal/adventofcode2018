@@ -1,3 +1,8 @@
+use std::fs;
+use std::io;
+use std::io::stdout;
+use std::io::Write;
+
 mod d1;
 mod d2;
 mod d3;
@@ -7,25 +12,68 @@ mod d6;
 mod d7;
 mod puzzle;
 
-pub fn execute_puzzle(i: u32, content: String) -> String {
-    let funcs = [
-        d1::puzzle_a,
-        d1::puzzle_b,
-        d2::puzzle_a,
-        d2::puzzle_b,
-        d3::puzzle_a,
-        d3::puzzle_b,
-        d4::puzzle_a,
-        d4::puzzle_b,
-        d5::puzzle_a,
-        d5::puzzle_b,
-        d6::puzzle_a,
-        d6::puzzle_b,
-        d7::puzzle_a,
-        d7::puzzle_b,
-    ];
-    let p_func = funcs.get((i - 1) as usize).expect("Puzzle did not exist.");
-    let res = p_func(content);
+use self::puzzle::Puzzle;
+
+pub fn execute_puzzle() -> String {
+    let mut days: Vec<Box<Puzzle>> = Vec::new();
+    days.push(Box::new(d1::Day {}));
+    days.push(Box::new(d2::Day {}));
+    days.push(Box::new(d3::Day {}));
+    days.push(Box::new(d4::Day {}));
+    days.push(Box::new(d5::Day {}));
+    days.push(Box::new(d6::Day {}));
+    days.push(Box::new(d7::Day {}));
+
+    // todo: better menu
+    println!("Please select from the list:");
+    for index in 0..days.len() {
+        let day = &days[index as usize];
+        let (desc_a, desc_b) = day.desc();
+        let _i = index + 1;
+        println!(
+            "  Day {id:02}: | {id}a. {a:30}| {id}b. {b}",
+            id = _i,
+            a = desc_a,
+            b = desc_b
+        );
+    }
+
+    print!("> ");
+
+    let _ = stdout().flush();
+
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("error: unable to read user input");
+
+    let trimmed = input.trim_right().to_string();
+    println!("Your choice: '{}'", trimmed);
+
+    let id: String = trimmed.chars().take(trimmed.chars().count() - 1).collect();
+    let puzzle_id: String = trimmed
+        .chars()
+        .skip(trimmed.chars().count() - 1)
+        .take(1)
+        .collect();
+
+    println!("aaaa");
+    println!("Day: {}, Puzzle: {}", id, puzzle_id);
+
+    let i: u32 = id.parse().expect("invalid number provided");
+
+    let filename = format!("input/d{}.txt", i);
+
+    let content = fs::read_to_string(&filename).expect("Could not read puzzle input");
+
+    let day_struct = &days[(i - 1) as usize];
+    let res: String = match puzzle_id.as_ref() {
+        "a" => day_struct.puzzle_a(content),
+        "b" => day_struct.puzzle_b(content),
+        _ => String::from("Invalid Puzzle"),
+    };
+
+    println!("Result: {}", res);
 
     return res;
 }
