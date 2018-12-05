@@ -1,6 +1,7 @@
 [package]
 name = "adventofcode2018"
 version = "0.1.0"
-authors = ["stupid cat <kirkbenm@gmail.com>"]
+authors = ["stupid cat <cat@blargbot.xyz>"]
 
 [dependencies]
+regex = "1"
