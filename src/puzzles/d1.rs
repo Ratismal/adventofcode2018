@@ -17,8 +17,6 @@ impl Puzzle for Day {
 
         let mut result: i32 = 0;
 
-        println!("Adding a series of numbers...");
-
         for line in lines {
             let i: i32 = line.parse().unwrap();
             result += i;
@@ -34,8 +32,6 @@ impl Puzzle for Day {
 
         let mut result: i32 = 0;
         let mut cont = true;
-
-        println!("Finding first repeated result when continuously adding a series of numbers...");
 
         while cont {
             let lines = input.lines();
