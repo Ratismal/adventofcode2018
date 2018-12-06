@@ -102,7 +102,7 @@ pub fn execute_puzzle() -> bool {
         println!("\x1B[33m| Execution Time: \x1B[36m{:?}", duration);
     }
 
-    println!("\x1B[35mPress \x1B[43;30menter\x1B[0;35m to continue...\x1B[0m");
+    println!("\x1B[35mPress \x1B[43;30m enter \x1B[0;35m to continue...\x1B[0m");
     let mut _input = String::new();
     io::stdin()
         .read_line(&mut _input)
