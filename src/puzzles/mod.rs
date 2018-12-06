@@ -97,7 +97,7 @@ pub fn execute_puzzle() -> bool {
         };
         let end = Instant::now();
 
-        println!("\x1B[33m| Result: {}", res);
+        println!("\x1B[33m| Result: \x1B[36m{}", res);
         let duration = end.duration_since(start);
         println!("\x1B[33m| Execution Time: \x1B[36m{:?}", duration);
     }
