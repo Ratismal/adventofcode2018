@@ -2,6 +2,7 @@ use std::fs;
 use std::io;
 use std::io::stdout;
 use std::io::Write;
+use std::time::Instant;
 
 mod d1;
 mod d2;
@@ -75,13 +76,17 @@ pub fn execute_puzzle() -> bool {
         let content = fs::read_to_string(&filename).expect("Could not read puzzle input");
 
         let day_struct = &days[(i - 1) as usize];
+
+        let start = Instant::now();
         let res: String = match puzzle_id.as_ref() {
             "a" => day_struct.puzzle_a(content),
             "b" => day_struct.puzzle_b(content),
             _ => String::from("Invalid Puzzle"),
         };
+        let end = Instant::now();
 
         println!("Result: {}", res);
+        println!("Execution Time: {:?}", end.duration_since(start));
     }
 
     println!("Press enter to continue...");
