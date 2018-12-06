@@ -15,6 +15,8 @@ mod puzzle;
 
 use self::puzzle::Puzzle;
 
+const RESET: &str = "\x1B[0m";
+
 pub fn execute_puzzle() -> bool {
     let mut days: Vec<Box<Puzzle>> = Vec::new();
     days.push(Box::new(d1::Day {}));
@@ -32,14 +34,20 @@ pub fn execute_puzzle() -> bool {
         let (desc_a, desc_b) = day.desc();
         let _i = index + 1;
         println!(
-            "  Day {id:02}: | {id}a. {a:30}| {id}b. {b}",
+            "{escape}  Day {id:02}: | {id}a. {a:30}| {id}b. {b}{reset}",
+            escape = if index % 2 == 0 {
+                "\x1B[31m"
+            } else {
+                "\x1B[32m"
+            },
             id = _i,
             a = desc_a,
-            b = desc_b
+            b = desc_b,
+            reset = RESET
         );
     }
 
-    println!("  q. Quit the application");
+    println!("\x1B[35m  q. Quit the application{}", RESET);
 
     print!("> ");
 
@@ -55,7 +63,7 @@ pub fn execute_puzzle() -> bool {
     if trimmed == String::from("q") {
         return false;
     }
-    println!("Your choice: '{}'", trimmed);
+    println!("\x1B[33m| Your choice: \x1B[36m'{}'", trimmed);
 
     let id: String = trimmed.chars().take(trimmed.chars().count() - 1).collect();
     let puzzle_id: String = trimmed
@@ -64,7 +72,10 @@ pub fn execute_puzzle() -> bool {
         .take(1)
         .collect();
 
-    println!("Day: {}, Puzzle: {}", id, puzzle_id);
+    println!(
+        "\x1B[33m| Day: \x1B[36m{}\x1B[33m, Puzzle: \x1B[36m{}",
+        id, puzzle_id
+    );
 
     let i: usize = id.parse().expect("invalid number provided");
 
@@ -78,6 +89,7 @@ pub fn execute_puzzle() -> bool {
         let day_struct = &days[(i - 1) as usize];
 
         let start = Instant::now();
+        print!("\x1B[0m");
         let res: String = match puzzle_id.as_ref() {
             "a" => day_struct.puzzle_a(content),
             "b" => day_struct.puzzle_b(content),
@@ -85,11 +97,12 @@ pub fn execute_puzzle() -> bool {
         };
         let end = Instant::now();
 
-        println!("Result: {}", res);
-        println!("Execution Time: {:?}", end.duration_since(start));
+        println!("\x1B[33m| Result: {}", res);
+        let duration = end.duration_since(start);
+        println!("\x1B[33m| Execution Time: \x1B[36m{:?}", duration);
     }
 
-    println!("Press enter to continue...");
+    println!("\x1B[35mPress \x1B[43;30menter\x1B[0;35m to continue...\x1B[0m");
     let mut _input = String::new();
     io::stdin()
         .read_line(&mut _input)
