@@ -6,7 +6,7 @@ impl Puzzle for Day {
   fn desc(&self) -> (String, String) {
     return (
       String::from("Eliminate differing cases"),
-      String::from("To be determined..."),
+      String::from("Find efficient elimination"),
     );
   }
 
