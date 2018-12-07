@@ -79,7 +79,7 @@ pub fn execute_puzzle() -> bool {
 
     let i: usize = id.parse().expect("invalid number provided");
 
-    if i >= days.len() {
+    if i > days.len() {
         println!("Puzzle did not exist");
     } else {
         let filename = format!("input/d{}.txt", i);
