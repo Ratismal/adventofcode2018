@@ -62,7 +62,7 @@ impl Puzzle for Day {
           }
           completed.push(t.to_string());
           println!(
-            "{:4}: A worker has finished {}. There are {} workers remaining.",
+            "{:4}: A worker has finished {}.     There are {} workers remaining.",
             seconds, t, workers
           );
         }
@@ -73,7 +73,7 @@ impl Puzzle for Day {
         in_progress.insert(t.to_string(), seconds);
         workers += -1;
         println!(
-          "{:4}: A worker has started on {}. There are {} workers remaining.",
+          "{:4}: A worker has started on {}.   There are {} workers remaining.",
           seconds, t, workers
         );
       }
