@@ -11,6 +11,7 @@ mod d4;
 mod d5;
 mod d6;
 mod d7;
+mod d8;
 mod puzzle;
 
 use self::puzzle::Puzzle;
@@ -26,6 +27,7 @@ pub fn execute_puzzle() -> bool {
     days.push(Box::new(d5::Day {}));
     days.push(Box::new(d6::Day {}));
     days.push(Box::new(d7::Day {}));
+    days.push(Box::new(d8::Day {}));
 
     // todo: better menu
     println!("Please select from the list:");
